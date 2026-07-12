@@ -1,0 +1,40 @@
+{% extends 'main\base.html' %}
+{% load static %}
+{% block title %} Voters Dashboard {% endblock title %}
+{% block body %}
+  <div class="position p-3 mt-2" >
+    <h2 class="color-b">Presidential Candidates</h2>
+   <form action="." method="post" class="p-4">
+    {% csrf_token %}
+    <div class="candidates-group p-1 row">
+
+      <div class="col-12 col-md-3">
+        <label for="c-1" class="card-custom">
+          <img src="{% static 'cand.jpg' %}" alt="candidates image">
+          <div class="card-body">
+            <h5 class="card-title color-b">Balogun Basit</h5>
+            <input class="d-none" value="1" id="c-1" name="candidate" type="radio">
+          </div>
+        </label>
+      </div>
+
+      <div class="col-12 col-md-3">
+        <label for="c-2" class="card-custom">
+          <img src="{% static 'cand.jpg' %}" alt="candidates image">
+          <div class="card-body">
+            <h5 class="card-title color-b">Jane Doe</h5>
+            <input class="d-none" value="2" id="c-2" name="candidate" type="radio">
+          </div>
+        </label>
+      </div>
+
+    </div>
+    <button type="button" class="btn bg-b mt-3" id="castVoteBtn">Cast Vote</button>
+  </form>
+</div>
+        <!-- <div class="candidate"></div> -->
+
+     </div>
+ 
+    
+{% endblock body %}
