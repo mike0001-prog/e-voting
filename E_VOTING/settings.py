@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
+    'crispy_bootstrap5',
+   
     "main"
 ]
 
@@ -89,7 +92,14 @@ DATABASES = {
 
 LOGIN_REDIRECT_URL = "voter_dashboard"
 LOGOUT_REDIRECT_URL = "user_login"
+# The URL prefix used to access media files via browser
+MEDIA_URL = '/media/'
 
+# The absolute filesystem path where files will be stored on your machine
+MEDIA_ROOT = BASE_DIR / 'media'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 

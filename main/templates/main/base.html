@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script  src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+   
     <title>{% block title%}{% endblock title %}</title>
 </head>
 <body>
@@ -21,7 +23,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'voter_dashboard'%}">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'result_page' %}">Results</a>
@@ -34,7 +36,7 @@
             Settings
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-           
+             <li><a class="dropdown-item" href="#">Register For Election</a></li>
             <li><a class="dropdown-item" href="#">Change Password</a></li>
             
           
@@ -75,7 +77,7 @@
   </div>
 </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-  <script  src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 
 <script>
   $(function () {
@@ -96,7 +98,7 @@
         return;
       }
 
-      var candidateName = $checked.closest("label.card").find(".card-title").text().trim();
+      var candidateName = $checked.closest("label.card-custom").find(".card-title").text().trim();
       $("#selected-candidate-name").text(candidateName);
 
       $("#confirmVoteModal").data("target-form", $form);
@@ -106,19 +108,22 @@
 
     // submit via AJAX once confirmed, then remove the position block
     $(document).on("click", "#confirmVoteBtn", function () {
+      
       var $confirmBtn = $(this);
       var $form = $("#confirmVoteModal").data("target-form");
+      console.log($form)
       var $positionDiv = $form.closest(".position");
 
       $confirmBtn.prop("disabled", true).text("Submitting...");
-
+      console.log($form.attr("action"))
       $.ajax({
-        url: $form.attr("action"),
+        url: "/main/dashboard/",
         method: "POST",
         data: $form.serialize(),
         success: function (response) {
           var modalEl = document.getElementById("confirmVoteModal");
           bootstrap.Modal.getInstance(modalEl).hide();
+          console.log(response)
 
           // remove the whole position section (title + candidates + button)
           $positionDiv.fadeOut(300, function () {
@@ -126,6 +131,7 @@
           });
         },
         error: function (xhr) {
+          console.log(xhr)
           alert("Something went wrong submitting your vote. Please try again.");
         },
         complete: function () {

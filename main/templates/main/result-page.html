@@ -1,6 +1,62 @@
-{% extends "main/base.html" %}
-{% block title %} Results {% endblock title %}
 
-{% block body %} 
+
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %} Election Results {% endblock title %}
+{% block body %}
+
+<div class="p-3 mt-2">
+  <h2 class="color-b mb-4">Election Results</h2>
+
+  <div class="row">
+    {% for result in results_data %}
+      <div class="col-12 col-md-6 mb-4">
+        <div class="card p-3">
+          <h5 class="card-title color-b text-capitalize" >{{ result.position }}</h5>
+          <canvas id="chart-{{ forloop.counter }}"></canvas>
+        </div>
+      </div>
+    {% empty %}
+      <p>No results available yet.</p>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- safely pass Django data into JS -->
+{{ results_data|json_script:"results-data" }}
+
+<script>
+  $(function () {
+    var resultsData = JSON.parse(document.getElementById('results-data').textContent);
+
+    resultsData.forEach(function (result, index) {
+      var ctx = document.getElementById('chart-' + (index + 1)).getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: result.labels,
+          datasets: [{
+            label: 'Votes',
+            data: result.votes,
+            backgroundColor: '#075491'
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+            title: { display: false }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: { stepSize: 1 }
+            }
+          }
+        }
+      });
+    });
+  });
+</script>
 
 {% endblock body %}

@@ -18,13 +18,15 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib.auth.views import LoginView,LogoutView
-from main.views import CustomLoginView
+from django.contrib.auth.views import (LoginView,LogoutView,PasswordChangeView,
+                                       PasswordChangeDoneView)
+from main.views import registration
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("main/", include("main.urls")),
     path("accounts/login/", LoginView.as_view(template_name="main/login.html"), name="user_login"),
     path("accounts/logout/", LogoutView.as_view(), name="user_logout"),
+    path("accounts/registration/", registration, name="user_register")
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

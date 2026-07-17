@@ -41,7 +41,7 @@ opacity:0.2;
     align-items: center;
     height: 100vh;
 }
-.sign-in-form{
+.sign-in-form,.sign-up-form{
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -49,6 +49,10 @@ opacity:0.2;
     background-color: white;
     border-radius: 5px;
     box-shadow: grey 0px 0px 10px;
+}
+.sign-up-form{
+    max-height: 90vh;
+    overflow-y: scroll;
 }
 .sign-in-form input{
     padding: 10px;
@@ -167,9 +171,9 @@ nav img{
     width: 100px;
     border-radius: 50%;
 }
-/* @media screen {
+@media screen {
     .position{
-    max-height: 50vh;
-    overflow-y: scroll;
+    /* max-height: 50vh; */
+    overflow-x: scroll;
 }
-} */
+}

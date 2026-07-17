@@ -1,24 +1,57 @@
 {% extends 'main\base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block title %} Voters Dashboard {% endblock title %}
 {% block body %}
+
+{% if election.status == "REGISTRATION" %}
+{% if is_registered %}
+<form class="p-3" action="{% url 'create_candidate' %}" method="post">
+
+  {{ candidate_creation_form|crispy }}
+  <button class="bg-b btn" type="submit">Register</button>
+</form>
+{% else %}
+<p class="text-info text-capitalize p-3">Note: only registered voters can apply for a post, click on the button below to register </p>
+
+<form class="p-3" action="{% url 'register_election' %}" method="post">
+
+ 
+  <button class="bg-b btn" type="submit">Register For Election</button>
+</form>
+{% endif %}
+{% endif %}
+ {% if election.status == "VOTING" %}   
+ {% if not election_time_exceeded %}
+ {% for p in positions %}
+ <!-- <p>{{ previous_vote }} {{ p.id }}</p> -->
+ {% if  p.id in  previous_vote %}
+
+  <h3 class="color-b"> Vote Submitted</h3>
+{% else %}
   <div class="position p-3 mt-2" >
-    <h2 class="color-b">Presidential Candidates</h2>
-   <form action="." method="post" class="p-4">
+    <h2 class="color-b text-capitalize">{{ p.position }}</h2>
+   <form action="{% url 'voter_dashboard' %}" method="post" class="p-4">
     {% csrf_token %}
     <div class="candidates-group p-1 row">
 
+{% for c in candidates %}
+
+      {% if c.position.id == p.id %}
       <div class="col-12 col-md-3">
-        <label for="c-1" class="card-custom">
+        <label for="c-{{ c.id }}" class="card-custom">
           <img src="{% static 'cand.jpg' %}" alt="candidates image">
           <div class="card-body">
-            <h5 class="card-title color-b">Balogun Basit</h5>
-            <input class="d-none" value="1" id="c-1" name="candidate" type="radio">
+            <h5 class="card-title color-b">{{ c.name_of_candidate }}</h5>
+            <input class="d-none" value="{{ c.id }}" id="c-{{ c.id }}" name="candidate" type="radio">
           </div>
         </label>
       </div>
-
-      <div class="col-12 col-md-3">
+      
+      {% endif %}
+       
+{% endfor %}
+      <!-- <div class="col-12 col-md-3">
         <label for="c-2" class="card-custom">
           <img src="{% static 'cand.jpg' %}" alt="candidates image">
           <div class="card-body">
@@ -26,15 +59,21 @@
             <input class="d-none" value="2" id="c-2" name="candidate" type="radio">
           </div>
         </label>
-      </div>
+      </div> -->
 
     </div>
     <button type="button" class="btn bg-b mt-3" id="castVoteBtn">Cast Vote</button>
   </form>
 </div>
-        <!-- <div class="candidate"></div> -->
+{% endif %}
 
-     </div>
+{% endfor %}
+
+ {% endif %}
+ {% endif %}
+<!-- <div class="candidate"></div> -->
+
+     
  
     
 {% endblock body %}
