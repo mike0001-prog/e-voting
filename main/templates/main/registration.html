@@ -1,55 +1,26 @@
 {% extends "main/auth_base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block title %} Onboard Voters {% endblock title %}
 {% block body %}
 <form class="sign-in-form sign-up-form p-3" action="." method="post">
-    {% if form.errors %}
-    <div class="error-summary">
-        <!-- 1. Handle non-field errors (e.g., cross-field validation rules) -->
-        {% if form.non_field_errors %}
-            <div class="alert alert-danger">
-                {{ form.non_field_errors }}
-            </div>
+    {% for m in messages %}
+        <div class="alert alert-{{ m.level_tag }}">{{ m.message }}</div>
+        {% if m.level_tag == "error"%}
+        <div class="alert alert-danger"> {{ m.message }}</div>
+        {% else %}
+        <div class="alert alert-{{ m.level_tag }}">{{ m.message }}</div>
         {% endif %}
-
-        <!-- 2. Loop through all specific field errors -->
-        <ul class="errorlist">
-            {% for field, errors in form.errors.items %}
-                {% if field != '__all__' %}  {# Skip non-field errors since they are handled above #}
-                    {% for error in errors %}
-                        <li><strong>{{ field|capfirst }}:</strong> {{ error }}</li>
-                    {% endfor %}
-                {% endif %}
-            {% endfor %}
-        </ul>
-    </div>
-{% endif %}
+    {% endfor %}
      <div class="logos-container">
-            <!-- <img src="{% static 'logo.png' %}" alt="LASCOCO LOGO"> -->
-            <img src="{% static 'src-logo.jpg' %}" alt="LASCOCO SRC LOGO">
+           
+            <img src="{% static 'src-logo.png' %}" alt="LASCOCO SRC LOGO">
 
         </div>
-<div class="form-floating mb-3">
-  <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required class="form-control" id="floatingInput" placeholder="name@example.com">
-  <label for="floatingInput">Matric No.</label>
-</div>
+{{ form|crispy }}
 {% csrf_token %}
-<div class="form-floating">
-  <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password" required>
-  <label for="floatingPassword">Password</label>
-</div>
-<div class="form-floating">
-  <input name="password2" type="password" class="form-control" id="floatingPassword2" placeholder="Confirm Password" required>
-  <label for="floatingPassword2">Confirm Password</label>
-</div>
-<div class="form-floating mb-3">
-  <input type="text" name="last_name" autofocus autocapitalize="none" maxlength="150" required class="form-control" id="lastname" placeholder="e.g Oyeniyi">
-  <label for="lastname">Last Name</label>
-</div>
-<div class="form-floating mb-3">
-  <input type="text" name="first_name" autofocus autocapitalize="none"  maxlength="150" required class="form-control" id="firstname" placeholder="e.g Michael">
-  <label for="firstname">First Name</label>
-</div>
-<button class="p-2 btn">Log In</button>
+<button class="p-2 btn">Register</button>
+        <!-- <p class="p-2 text-capitalize text-center"> don't have an account click <a href="{% url 'user_login' %}">here</a> to register  </p> -->
+
 </form>
 {% endblock body %}

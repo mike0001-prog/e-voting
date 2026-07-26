@@ -6,6 +6,7 @@
 }
 :root{
     --green:#075491;
+    --message-error-bg: #ffefef;
 }
 .background-animation {
 margin: 0;
@@ -168,12 +169,24 @@ color: var(--green);
 background-color: var(--green) !important;
 }
 nav img{
-    width: 100px;
+    width: 150px;
     border-radius: 50%;
 }
 @media screen {
     .position{
     /* max-height: 50vh; */
-    overflow-x: scroll;
+    /* overflow-x: scroll; */
 }
 }
+body{
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    height: 100dvh;
+}
+/* .candidates-group::-webkit-scrollbar-track{
+    border-radius: 10px;
+
+} */
+ .error{
+    background-color: var(--message-error-bg);
+ }

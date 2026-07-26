@@ -3,35 +3,43 @@
 {% load crispy_forms_tags %}
 {% block title %} Voters Dashboard {% endblock title %}
 {% block body %}
-
+{% for m in messages %}
+<div class="mt-3 mx-3 alert alert-{{ m.level_tag }}"> {{ m.message }}</div>
+{% endfor %}
+<!-- registration component -->
 {% if election.status == "REGISTRATION" %}
 {% if is_registered %}
-<form class="p-3" action="{% url 'create_candidate' %}" method="post">
+{% if  is_registered_candidate %}
+<p class="p-3 color-b text-capitalize"> election will commence in {{ election.scheduled_date|timeuntil}}</p>
+{% else %}
+<p class="p-3 color-b text-capitalize"> select your prefered position and upload your picture, visit elecroral committee for approval </p>
 
+<form enctype="multipart/form-data" class="p-3" action="{% url 'create_candidate' %}" method="post">
+  {% csrf_token %}
   {{ candidate_creation_form|crispy }}
   <button class="bg-b btn" type="submit">Register</button>
+  {{ candidate_creation_form.errors }}
 </form>
+
+{% endif %}
 {% else %}
-<p class="text-info text-capitalize p-3">Note: only registered voters can apply for a post, click on the button below to register </p>
+<p class="color-b text-capitalize p-3">Note: only registered voters can apply for a post, click on the button below to register </p>
 
 <form class="p-3" action="{% url 'register_election' %}" method="post">
 
- 
+ {% csrf_token %}
   <button class="bg-b btn" type="submit">Register For Election</button>
 </form>
 {% endif %}
 {% endif %}
+
+<!-- voting component -->
  {% if election.status == "VOTING" %}   
  {% if not election_time_exceeded %}
  {% for p in positions %}
- <!-- <p>{{ previous_vote }} {{ p.id }}</p> -->
- {% if  p.id in  previous_vote %}
-
-  <h3 class="color-b"> Vote Submitted</h3>
-{% else %}
   <div class="position p-3 mt-2" >
     <h2 class="color-b text-capitalize">{{ p.position }}</h2>
-   <form action="{% url 'voter_dashboard' %}" method="post" class="p-4">
+   <form action="{% url 'cast_vote' %}" method="post" class="p-4">
     {% csrf_token %}
     <div class="candidates-group p-1 row">
 
@@ -51,29 +59,21 @@
       {% endif %}
        
 {% endfor %}
-      <!-- <div class="col-12 col-md-3">
-        <label for="c-2" class="card-custom">
-          <img src="{% static 'cand.jpg' %}" alt="candidates image">
-          <div class="card-body">
-            <h5 class="card-title color-b">Jane Doe</h5>
-            <input class="d-none" value="2" id="c-2" name="candidate" type="radio">
-          </div>
-        </label>
-      </div> -->
+     
 
     </div>
     <button type="button" class="btn bg-b mt-3" id="castVoteBtn">Cast Vote</button>
   </form>
 </div>
-{% endif %}
+
 
 {% endfor %}
+{% else %}
+ <p class="text-capitalize p-3 mt-2" > election has ended / election has not started </p>
 
  {% endif %}
- {% endif %}
-<!-- <div class="candidate"></div> -->
 
-     
- 
-    
+ {% elif election.status == "CLOSED" %}
+ <p class="text-capitalize p-3 mt-2" > this election is closed </p>
+ {% endif %}
 {% endblock body %}

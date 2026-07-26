@@ -24,3 +24,13 @@ def validate_device(func):
 
         return func
     return inner_func
+
+def validate_matric_number(matric_number : str):
+    import re
+    to_lower = matric_number.lower()
+    pattern = r'^[a-zA-Z]+_[a-zA-Z]+_[a-zA-Z]+_\d{2}+_\d+$'
+    is_matched = bool(re.match(pattern,to_lower))
+    if is_matched and to_lower.startswith("lascoco"):
+        return True
+    
+    
