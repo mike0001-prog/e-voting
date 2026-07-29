@@ -19,7 +19,7 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import (LoginView,LogoutView,PasswordChangeView)
-from main.views import registration,CustomPasswordChangeView,redirect_login
+from main.views import registration,CustomPasswordChangeView,landing
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("main/", include("main.urls")),
@@ -27,7 +27,7 @@ urlpatterns = [
     path("accounts/logout/", LogoutView.as_view(), name="user_logout"),
     path("accounts/registration/", registration, name="user_register"),
     path("accounts/change_password/", CustomPasswordChangeView.as_view(), name="user_changepwd"),
-    path("", redirect_login)
+    path("", landing,name="landing")
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

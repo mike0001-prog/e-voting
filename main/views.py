@@ -173,5 +173,5 @@ class CustomPasswordChangeView(PasswordChangeView):
 		return reverse("voter_dashboard")
 		
 
-def redirect_login(request):
-    return redirect("user_login")
+def landing(request):
+    return render(request,"main/landing.html")

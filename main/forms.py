@@ -6,7 +6,7 @@ class VoteForm(forms.Form):
 
 class CustomUserCreationForm(UserCreationForm):
     username = forms.CharField( label="Matric No",max_length=150,required=True,help_text="Matric No. should be in this format lascoco_nd_com_26_001")
-    email = forms.EmailField(required=True)
+    # email = forms.EmailField(required=True)
     last_name = forms.CharField(max_length=150,required=True)
     first_name = forms.CharField(max_length=150,required=True)
 

@@ -1,0 +1,237 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lagos State Cooperative College — E-Voting Portal</title>
+
+ 
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'landing.css' %}">
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<nav class="site-nav">
+  <div class="container d-flex align-items-center justify-content-between flex-wrap">
+    <a href="{% url 'landing' %}" class="brand">
+      <span class="brand-mark">
+        <img src="{% static 'src-logo.png' %}" alt="LASCOCO SRC LOGO">
+      </span>
+      
+    </a>
+
+    <div class="d-flex align-items-center gap-2">
+      <a class="nav-link" href="{% url 'landing' %}">Home</a>
+      <a class="nav-link" href="{% url 'user_login' %}">Login</a>
+      <a class="nav-link btn-nav-register" href="{% url 'user_register' %}">Register</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="container">
+    <div class="row align-items-center gy-5">
+      <div class="col-lg-6">
+        <p class="eyebrow mb-0">Official student e-voting portal</p>
+        <h1>Your vote.<br>Counted, not just cast.</h1>
+        <p class="lead-copy">
+          Register in minutes, verify your identity, and vote securely for your prefered
+          candidates 
+        </p>
+        <div class="hero-cta">
+          <a href="{% url 'user_register' %}" class="btn-ballot-primary">Register to vote</a>
+          <a href="{% url 'user_login' %}" class="btn-ballot-secondary">Login</a>
+        </div>
+      </div>
+
+      
+    </div>
+  </div>
+</header>
+
+<!-- ============ SIGNATURE: PERFORATED BALLOT-STUB DIVIDER ============ -->
+<div class="container">
+  <div class="ballot-stub-divider" aria-hidden="true">
+    <span class="hole"></span>
+    <span class="perf-line"></span>
+    <span class="hole"></span>
+  </div>
+</div>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="steps-section">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="step-card">
+          <div class="step-num">01 — Register</div>
+          <h3>Create your voter profile</h3>
+          <p>Sign up with your matriculation details. We verify you're an eligible, currently enrolled student.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="step-card">
+          <div class="step-num">02 — Login</div>
+          <h3>Enter the voting hall</h3>
+          <p>Log in during the election window to see the candidates standing for each position.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="step-card">
+          <div class="step-num">03 — Vote</div>
+          <h3>Cast and confirm</h3>
+          <p>Select a candidate per position, confirm your choice, and get instant confirmation it was recorded.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INSTITUTION NAME BANNER ============ -->
+<section class="institution-banner">
+  <p class="institution-name">LAGOS STATE COOPERATIVE COLLEGE</p>
+  <p class="institution-sub">Student Representative Council Elections</p>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq-section" id="faq">
+  <div class="container">
+    <div class="section-heading">
+      <p class="eyebrow mb-0">Need to know</p>
+      <h2>Frequently asked questions</h2>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-9">
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="true">
+            Who is eligible to vote?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer" style="max-height: 200px;">
+            <p>Every currently enrolled student of Lagos State Cooperative College with an active matriculation number can register and vote. Your eligibility is checked automatically when you register.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            How do I register to vote?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Click "Register" above and fill in your name, matriculation number, and department. You'll set a password to log back in when voting opens.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Is my vote confidential?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Yes. Your identity is used only to confirm you're eligible and to prevent double voting — it is never linked to, or shown alongside, the candidate you chose.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Can I change my vote after submitting?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>No. Once you confirm a vote for a position, it's final — this keeps the process fair for every candidate and voter.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            What if I face a technical issue while voting?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Refresh and log back in — your progress on positions you've already voted for is saved. If the problem continues, contact the electoral committee through the college's help desk.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            When can I see the results?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Results are published once voting closes for all positions, and can be viewed on the Results page from your dashboard.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="bg-body-tertiary text-center text-lg-start">
+  <!-- Grid container -->
+  <div class="container p-4">
+    <!--Grid row-->
+    <div class="row">
+      <!--Grid column-->
+      <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+        <h5 class="text-uppercase color-b">Project Title</h5>
+
+        <p class="text-capitalize color-b">
+          design and implementation of an evoting system a case study of lagos state cooperative college
+          student representative council
+        </p>
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+        <h5 class="text-uppercase color-b">Researchers</h5>
+
+        <p class="text-capitalize color-b p-3">
+          a research project by balogun basit, sabiu rasaq, dosu sonia, abimbola baserat
+        </p>
+      </div>
+      <!--Grid column-->
+    </div>
+    <!--Grid row-->
+  </div>
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2026 Copyright
+    <!-- <a class="text-body" href="https://mdbootstrap.com/">MDBootstrap.com</a> -->
+  </div>
+  <!-- Copyright -->
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+<script>
+  $(function () {
+    $(".faq-question").on("click", function () {
+      var $btn = $(this);
+      var $answer = $btn.next(".faq-answer");
+      var isOpen = $btn.attr("aria-expanded") === "true";
+
+      if (isOpen) {
+        $btn.attr("aria-expanded", "false");
+        $answer.css("max-height", "0");
+      } else {
+        $btn.attr("aria-expanded", "true");
+        $answer.css("max-height", $answer[0].scrollHeight + "px");
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
