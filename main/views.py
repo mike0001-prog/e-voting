@@ -172,3 +172,6 @@ class CustomPasswordChangeView(PasswordChangeView):
 		messages.success(self.request,"password change success")
 		return reverse("voter_dashboard")
 		
+
+def redirect_login(request):
+    return redirect("user_login")
